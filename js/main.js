@@ -1,11 +1,11 @@
-function Chat()
+/*function Chat()
 {
 	this.nombre = '';
 	this.people = [];
 	this.messages = [];
 	this.chatAvatar = '';
 }
-
+ 
 function Person(_name, _avatar)
 {
 	this.name = _name;
@@ -19,6 +19,7 @@ function Message(_message, _sender)
 }
 function Whatsapp()
 {
+	
 	this.chats = [];
 	this.selectedChat = null;
 	this.searchChat		= function(_keyword){};
@@ -41,8 +42,10 @@ function Whatsapp()
 		return this.selectedChat.messages[this.selectedChat.messages.length-1];
 	};
 	this.sendMessage	= function(_message, _in){
-		var htmlMessageIn = '<div class="w-message w-message-in"><div class="w-message-text"><p>' + _message.message + '</p><div class="time">14:27</div></div></div>';
-		var htmlMessageOut = '<div class="w-message w-message-out"><div class="w-message-text"><p>' + _message.message + '</p><div class="time">14:27</div></div></div>';
+		var fecha = new Date();
+		var	hora = fecha.getHours()+":"+fecha.getMinutes();
+		var htmlMessageIn = '<div class="w-message w-message-in"><div class="w-message-text"><p>' + _message.message + '</p><div class="time">' + hora + '</div></div></div>';
+		var htmlMessageOut = '<div class="w-message w-message-out"><div class="w-message-text"><p>' + _message.message + '</p><div class="time">' + hora + '</div></div></div>';
 		var divChat = document.getElementById('chat');
 
 		this.selectedChat.messages.push(_message);
@@ -103,34 +106,7 @@ function onInputKeyUp(evt)
 }
 
 
-/*
------------------------------
-function persona (_avatar, _nombre)
-{
-	this.avatar =_avatar;
-	this.nombre=_nombre;
-}
 
-function mensaje(_mensajeIn,_mensajeOut)
-{
-	this.mensajeIn=_mensajeIn;
-	this.mensajeOut=_mensajeOut;
-}
-
-function whatsapp()
-	this.buscar= function()
-{	
-	{
-		
-	this.fecha=function
-	{
-		var actual=new Date();
-		var hora=actual.getHours();
-
-		return hora;
-	}
-}
-*/
 //Buscador de nombres
 
 
@@ -158,11 +134,10 @@ search.addEventListener("keyup", function(e){
 false);
 //
 
-/*
+//-----------------------------------------------------------
 //Ingresar el texto del input de mensajes.
 
-var fecha = new Date();
-var	hora = fecha.getHours()+":"+fecha.getMinutes();
+
 var input=document.getElementById("mensajes");
 var chat=document.getElementById("chat");
 var mensajeOut = '<div class="w-message w-message-out"><div class="w-message-text"><p>' + input.value + '</p><div class="time">14:27</div></div></div>';
@@ -185,10 +160,75 @@ function agregar()
 }
 	*/
 	
+// Parte Logica
+
+
+//Parte Visual-interactua con elinterfaz
 
 
 
 
 
+
+
+crearMensaje();
+onMensajeKey();
+
+var liListItem=null;
+
+function onMensajeKey(evt)
+{
+	if(evt.keyCode == 13)
+	{
+		var elInputMensajes = document.getElementById("mensajes");
+		crearChat(elInputMensajes.value);
+		crearMensaje(elInputMensajes.value);	
+		elInputMensajes.value="";	
+	}	
+}
+
+function crearMensaje(_mensaje)
+{
+	var htmlMensajeIn =	'<div class="w-message w-message-in">'+'<div class="w-message-text">'+
+						'<h5 class="yellow-1">Aldo Alfaro</h5>'+'<p>Dale dale!</p>'+
+						'<div class="time">14:25</div>'+'</div>'+'</div>';
+	var fecha = new Date();
+	var htmlMensajeOut ='<div class="w-message w-message-out">'+'<div class="w-message-text">'+
+	  					'<p>'+_mensaje+'</p>'+'<div class="time">'+fecha.getHours()+":"+fecha.getMinutes()+'</div>'+'</div>'+'</div>';
+
+	var mensaje=liListItem.getElementsByClassName("w-last-message")[0];
+	mensaje.innerHTML=_mensaje;
+	console.log();
+
+	var elemChat= document.getElementById("chat");
+	elemChat.innerHTML += htmlMensajeOut;
+	elemChat.scrollTop = elemChat.scrollHeight;
+}
+
+function crearChat(_mensaje)
+{
+	var elListaChats = document.getElementById("listaChats");
+
+	if(liListItem==null)
+	{
+		liListItem = document.createElement("li");
+
+		var htmlChatItem = 	'<div class="avatar">'+'<img src="image/logocodeacademy.png" alt="" class="wh-44">'+
+		  				'<h4 class="w-contact-name">Laboratoria Perú</h4>'+
+		  				'<p class="w-last-message" id="mensaje">'+_mensaje+'</p>'+'</div>';
+		liListItem.innerHTML = htmlChatItem;
+		elListaChats.insertBefore(liListItem, elListaChats.childNodes[0]);
+	}	
+}
+
+function crearListaChats()
+{
+
+}
+
+function actualizarHeaderChat()
+{
+
+}
 
 
