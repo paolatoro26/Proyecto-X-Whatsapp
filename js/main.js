@@ -161,14 +161,15 @@ function agregar()
 	*/
 	
 // Parte Logica
+var listaChats = [
+	{ nombre: "Chat1", 
+	  imageURL:"image/logocodeacademy.png", 
+	  ultimoMensaje:"", 
+	  horaUltimoMensaje:"",
+	}listachats
+	  ];
 
-
-//Parte Visual-interactua con elinterfaz
-
-
-
-
-
+//Parte Visual-interactua con el interfaz
 
 
 crearMensaje();
@@ -176,6 +177,51 @@ onMensajeKey();
 
 var liListItem=null;
 
+
+function init()
+{
+	initChatList();
+
+}
+
+function initChatList ()
+{
+	var elListaChats=document.getElementById("listaChats");
+	for (var i dataListaChats)
+	{
+		
+		console.log(listachats.nombre);
+	}
+	setEventsChatList();
+}
+
+
+function setEventsChatList()
+{
+	var listaChats=document.getElementById("listachats");
+	//console.log( listaChats.getElementsByTagName("li"));
+	var arrListItem=listaChats.getElementsByTagName("li");
+	for (var i=0; i<arrListItem.length; i++)
+	{
+		//console.log(arrListItem[i]);
+		arrListItem[i].onclick= function(){
+			alert("click");
+		}
+		arrListItem[i].addEventListener("click", //function(){alert("click Listener")}
+			onChatItemClick);
+
+	}
+}
+
+function onChatItemClick(evt)
+{
+	
+	//console.log(evt.current.target);//referencia al li
+	var contactName=evt.current.target.getElementsByClassName("w-contact-name")[0].textContent;
+	var imagenURL=evt.current.target.getElementsByClassName("wh-44")[0].src;//si le doy [0] y solo hay un elemento me aparece "error"
+	actualizarCabeceraChat(contactName,imagenURL);
+
+}
 function onMensajeKey(evt)
 {
 	if(evt.keyCode == 13)
@@ -226,9 +272,10 @@ function crearListaChats()
 
 }
 
-function actualizarHeaderChat()
+function actualizarCabeceraChat(_contactName, _imagenURL, _estado)
 {
-
+	var chatHeader = document.getElementById("chat-header");
+	chatHeader.getElementsByClassName("w-contact-name")[0].innerHTML=_contactName;	
+	chatHeader.getElementsByClassName("w-users-messages")[0].innerHTML=_estado;
+	chatHeader.getElementsByClassName("image")[0].img=_imagenURL;
 }
-
-
