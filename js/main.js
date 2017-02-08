@@ -107,9 +107,14 @@ function onInputKeyUp(evt)
 
 
 
+
+
+
+	*/
+
+
+
 //Buscador de nombres
-
-
 
 var search = document.getElementById("search");
 var contacto = document.getElementsByTagName("h4");
@@ -132,43 +137,22 @@ search.addEventListener("keyup", function(e){
  });
 }, 
 false);
-//
-
-//-----------------------------------------------------------
-//Ingresar el texto del input de mensajes.
 
 
-var input=document.getElementById("mensajes");
-var chat=document.getElementById("chat");
-var mensajeOut = '<div class="w-message w-message-out"><div class="w-message-text"><p>' + input.value + '</p><div class="time">14:27</div></div></div>';
-
-
-input.addEventListener("keydown", subirMensaje);
-
-function subirMensaje(evt)
-{
-	if( evt.keyCode == 13)
-	{
-		agregar();
-	}
-}
-
-function agregar()
-{
-	chat.push(mensajeOut);
-	input.value="";
-}
-	*/
 	
 // Parte Logica
-var listaChats = [
-	{ nombre: "Chat1", 
-	  imageURL:"image/logocodeacademy.png", 
-	  ultimoMensaje:"", 
-	  horaUltimoMensaje:"",
-	}listachats
-	  ];
+function Chat(_nombre, _imagen)
+{
+	this.nombre =  _nombre;
+	this.imagenURL = _imagen;
+	this.ultimoMensaje = "";
+	this.horaUltimoMensaje = '';
 
+} 
+var dataListaChats=[
+	new Chat("Gio", 'image/logocodeacademy.png'),
+	new Chat("Isa", 'image/logocodeacademy.png'),
+] 
 //Parte Visual-interactua con el interfaz
 
 
@@ -187,10 +171,16 @@ function init()
 function initChatList ()
 {
 	var elListaChats=document.getElementById("listaChats");
-	for (var i dataListaChats)
+	for (var i in dataListaChats)
 	{
-		
-		console.log(listachats.nombre);
+		var htmlChatItem = '<li><div class="avatar">' +
+			'<img src="' + dataListaChats[i].imagenURL +  '" alt="" class="wh-44">' +
+			'<h4 class="w-contact-name">' + dataListaChats[i].nombre + '</h4>' +
+			'<p class="w-last-message" id="mensaje">' + dataListaChats[i].ultimoMensaje + '</p>' +
+			'</div>' +
+			'<div class="time" id="hora">' + dataListaChats[i].horaUltimoMensaje + '</div></li>';
+		dataListaChats[i].borrarMensajes();
+		elListaChats.innerHTML += htmlChatItem;
 	}
 	setEventsChatList();
 }
@@ -203,10 +193,10 @@ function setEventsChatList()
 	var arrListItem=listaChats.getElementsByTagName("li");
 	for (var i=0; i<arrListItem.length; i++)
 	{
-		//console.log(arrListItem[i]);
+		/*console.log(arrListItem[i]);
 		arrListItem[i].onclick= function(){
 			alert("click");
-		}
+		}*/
 		arrListItem[i].addEventListener("click", //function(){alert("click Listener")}
 			onChatItemClick);
 
@@ -219,7 +209,7 @@ function onChatItemClick(evt)
 	//console.log(evt.current.target);//referencia al li
 	var contactName=evt.current.target.getElementsByClassName("w-contact-name")[0].textContent;
 	var imagenURL=evt.current.target.getElementsByClassName("wh-44")[0].src;//si le doy [0] y solo hay un elemento me aparece "error"
-	actualizarCabeceraChat(contactName,imagenURL);
+	actualizarCabeceraChat(contactName,imagenURL,"Conectado");
 
 }
 function onMensajeKey(evt)
@@ -265,17 +255,18 @@ function crearChat(_mensaje)
 		liListItem.innerHTML = htmlChatItem;
 		elListaChats.insertBefore(liListItem, elListaChats.childNodes[0]);
 	}	
+	setEventsChatList();
 }
 
-function crearListaChats()
+/*function crearListaChats()
 {
 
-}
+}*/
 
 function actualizarCabeceraChat(_contactName, _imagenURL, _estado)
 {
 	var chatHeader = document.getElementById("chat-header");
 	chatHeader.getElementsByClassName("w-contact-name")[0].innerHTML=_contactName;	
 	chatHeader.getElementsByClassName("w-users-messages")[0].innerHTML=_estado;
-	chatHeader.getElementsByClassName("image")[0].img=_imagenURL;
+	chatHeader.getElementsByClassName("img")[0].img=_imagenURL;
 }
