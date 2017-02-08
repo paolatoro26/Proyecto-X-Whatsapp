@@ -1,8 +1,4 @@
-
-
-
 //Buscador de nombres de la lista
-
 var search = document.getElementById("search");
 var contacto = document.getElementsByTagName("h4");
 var forEach = Array.prototype.forEach;
@@ -24,8 +20,6 @@ search.addEventListener("keyup", function(e){
  });
 }, 
 false);
-
-
 	
 // Parte Logica
 function Chat(_nombre, _imagen)
@@ -34,25 +28,24 @@ function Chat(_nombre, _imagen)
 	this.imagenURL = _imagen;
 	this.ultimoMensaje = "";
 	this.horaUltimoMensaje = '';
+	/*this.borrarMensajes=function()
+	{
 
+	}*/
 } 
-var dataListaChats=[
+var dataListaChats=
+[
 	new Chat("Gio", 'image/logocodeacademy.png'),
 	new Chat("Isa", 'image/logocodeacademy.png'),
 ] 
+
 //Parte Visual-interactua con el interfaz
 
-
-crearMensaje();
-onMensajeKey();
-
 var liListItem=null;
-
 
 function init()
 {
 	initChatList();
-
 }
 
 function initChatList ()
@@ -66,16 +59,15 @@ function initChatList ()
 			'<p class="w-last-message" id="mensaje">' + dataListaChats[i].ultimoMensaje + '</p>' +
 			'</div>' +
 			'<div class="time" id="hora">' + dataListaChats[i].horaUltimoMensaje + '</div></li>';
-		dataListaChats[i].borrarMensajes();
+		//dataListaChats[i].borrarMensajes();
 		elListaChats.innerHTML += htmlChatItem;
 	}
 	setEventsChatList();
 }
 
-
-function setEventsChatList()
+function setEventsChatList()//Lista
 {
-	var listaChats=document.getElementById("listachats");
+	var listaChats=document.getElementById("listaChats");
 	//console.log( listaChats.getElementsByTagName("li"));
 	var arrListItem=listaChats.getElementsByTagName("li");
 	for (var i=0; i<arrListItem.length; i++)
@@ -86,20 +78,18 @@ function setEventsChatList()
 		}*/
 		arrListItem[i].addEventListener("click", //function(){alert("click Listener")}
 			onChatItemClick);
-
 	}
 }
 
-function onChatItemClick(evt)
-{
-	
+function onChatItemClick(evt)//Header
+{	
 	//console.log(evt.current.target);//referencia al li
 	var contactName=evt.current.target.getElementsByClassName("w-contact-name")[0].textContent;
 	var imagenURL=evt.current.target.getElementsByClassName("wh-44")[0].src;//si le doy [0] y solo hay un elemento me aparece "error"
 	actualizarCabeceraChat(contactName,imagenURL,"Conectado");
-
 }
-function onMensajeKey(evt)
+
+function onMensajeKey(evt)//Input
 {
 	if(evt.keyCode == 13)
 	{
@@ -110,7 +100,7 @@ function onMensajeKey(evt)
 	}	
 }
 
-function crearMensaje(_mensaje)
+function crearMensaje(_mensaje)//Crea mi burbuja 
 {
 	var htmlMensajeIn =	'<div class="w-message w-message-in">'+'<div class="w-message-text">'+
 						'<h5 class="yellow-1">Aldo Alfaro</h5>'+'<p>Dale dale!</p>'+
@@ -128,7 +118,7 @@ function crearMensaje(_mensaje)
 	elemChat.scrollTop = elemChat.scrollHeight;
 }
 
-function crearChat(_mensaje)
+function crearChat(_mensaje)//Chat-i
 {
 	var elListaChats = document.getElementById("listaChats");
 
