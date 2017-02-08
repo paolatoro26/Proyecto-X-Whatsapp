@@ -1,7 +1,7 @@
 
 
 
-//Buscador de nombres
+//Buscador de nombres de la lista
 
 var search = document.getElementById("search");
 var contacto = document.getElementsByTagName("h4");
