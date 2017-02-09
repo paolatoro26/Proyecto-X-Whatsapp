@@ -48,12 +48,12 @@ function init()
 	initChatList();
 }
 
-function initChatList ()
+function initChatList ()//crea la lista
 {
 	var elListaChats=document.getElementById("listaChats");
 	for (var i in dataListaChats)
 	{
-		var htmlChatItem = '<li><div class="avatar">' +
+		var htmlChatItem = '<li  draggable="true" ondragend="" ondragstar="inicioDrag(event)"><div class="avatar">' +
 			'<img src="' + dataListaChats[i].imagenURL +  '" alt="" class="wh-44">' +
 			'<h4 class="w-contact-name">' + dataListaChats[i].nombre + '</h4>' +
 			'<p class="w-last-message" id="mensaje">' + dataListaChats[i].ultimoMensaje + '</p>' +
@@ -64,6 +64,19 @@ function initChatList ()
 	}
 	setEventsChatList();
 }
+function inicioDrag(evt)
+{
+	console.log(evt);
+}
+function onError(error)
+{
+	console.log()
+	localStorage//solo almacena texto.setItem(lo q quiero guardar "Geolocation","no" lo q aparecera)
+}
+// json ponerlo en dos lugares : donde guardo la info y 
+// convertimos una cadena a formato json:JSON.stringyfy
+//JSON.parse devuelve un objeto con toda la cadena q le pasa
+navigator.geolocation.getcurrentPosition(showPosition, onError //callback cuando no nos permiten acceder)
 
 function setEventsChatList()//Lista
 {
